@@ -13,7 +13,7 @@ env:
   PIPELINE_USER_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   PIPELINE_USER_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   SAM_TEMPLATE: template.yaml
-  TESTING_STACK_NAME: j-d-1
+  TESTING_STACK_NAME: justin-dev-1
   TESTING_PIPELINE_EXECUTION_ROLE: arn:aws:iam::965509556893:role/aws-sam-cli-managed-justin-d-PipelineExecutionRole-3NEPGILNOMRO
   TESTING_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::965509556893:role/aws-sam-cli-managed-justi-CloudFormationExecutionR-1BQ2L28MJMI3V
   TESTING_ARTIFACTS_BUCKET: aws-sam-cli-managed-justin-dev-pi-artifactsbucket-r9t3vi20ljhe
@@ -22,7 +22,7 @@ env:
   # testing "sam package" and "sam deploy" commands.
   # TESTING_IMAGE_REPOSITORY = '0123456789.dkr.ecr.region.amazonaws.com/repository-name'
   TESTING_REGION: ap-south-1
-  PROD_STACK_NAME: j-p-1
+  PROD_STACK_NAME: justin-prod-1
   PROD_PIPELINE_EXECUTION_ROLE: arn:aws:iam::965509556893:role/aws-sam-cli-managed-justin-d-PipelineExecutionRole-3NEPGILNOMRO
   PROD_CLOUDFORMATION_EXECUTION_ROLE: arn:aws:iam::965509556893:role/aws-sam-cli-managed-justi-CloudFormationExecutionR-1BQ2L28MJMI3V
   PROD_ARTIFACTS_BUCKET: aws-sam-cli-managed-justin-dev-pi-artifactsbucket-r9t3vi20ljhe
