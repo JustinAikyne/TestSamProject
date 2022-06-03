@@ -46,35 +46,6 @@ Resources:
             PayloadFormatVersion: "1.0"
             RouteSettings:
               ThrottlingBurstLimit: 600
-  
-  CreateUserSam:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: CreateUser-Sam/
-      FunctionName: "CreateUser-Sam-justin"
-      Handler: index.lambdahandler
-      Environment:
-        Variables:
-          databaseName: mongodb
-          databaseUser: admin
-      Runtime: nodejs14.x
-      Policies:
-      - AmazonDynamoDBFullAccess
-      - AmazonS3FullAccess
-      - CloudWatchLogsFullAccess
-      Events:
-        ExplicitApi: # warning: creates a public endpoint
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref HttpApi
-            Auth:
-              Authorizer: 'NONE'
-            Method: POST
-            Path: /create
-            TimeoutInMillis: 15000
-            PayloadFormatVersion: "1.0"
-            RouteSettings:
-              ThrottlingBurstLimit: 600
 
   HttpApi:
     Type: AWS::Serverless::HttpApi
@@ -85,22 +56,11 @@ Resources:
       AccessLogSettings:
         DestinationArn: !GetAtt AccessLogs.Arn
         Format: $context.requestId
-      Auth:
-        Authorizers:
-          OAuth2Authorizer:
-            JwtConfiguration:
-              issuer: "https://aikyne.us.auth0.com/"
-              audience:
-                - https://aikyne-jwt-authorizer
-            IdentitySource: "$request.header.Authorization"
-        DefaultAuthorizer: OAuth2Authorizer
       DefaultRouteSettings:
         ThrottlingBurstLimit: 200
       RouteSettings:
         "GET /hello":
           ThrottlingBurstLimit: 500 # overridden in HttpApi Event
-      StageVariables:
-        mongoDB : "guna:WCPUfJGgOcN7HV20@gunacluster.wrvd0.mongodb.net/SocialMediaPublisher"
       FailOnWarnings: true
 
   AccessLogs:
