@@ -24,55 +24,6 @@ Resources:
             RouteSettings:
               ThrottlingBurstLimit: 600
 
-  AuthenticateUserSam:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: AuthenticateUser-Sam/
-      FunctionName: "Auth-Sam"
-      Handler: index.lambdahandler
-      Environment:
-        Variables:
-          databaseName: db
-          databaseUser: admin
-      Runtime: nodejs14.x
-      Events:
-        ExplicitApi: # warning: creates a public endpoint
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref HttpApi
-            Method: POST
-            Path: /auth
-            TimeoutInMillis: 15000
-            PayloadFormatVersion: "1.0"
-            RouteSettings:
-              ThrottlingBurstLimit: 600
-
-  CreateUserSam:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: CreateUser-Sam/
-      FunctionName: "Create-Sam"
-      Handler: index.lambdahandler
-      Environment:
-        Variables:
-          databaseName: mongodb
-          databaseUser: admin
-      Runtime: nodejs14.x
-      Policies:
-      Events:
-        ExplicitApi: # warning: creates a public endpoint
-          Type: HttpApi
-          Properties:
-            ApiId: !Ref HttpApi
-            Auth:
-              Authorizer: "NONE"
-            Method: POST
-            Path: /create
-            TimeoutInMillis: 15000
-            PayloadFormatVersion: "1.0"
-            RouteSettings:
-              ThrottlingBurstLimit: 600
-
   HttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
